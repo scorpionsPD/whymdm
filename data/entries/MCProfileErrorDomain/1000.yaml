@@ -1,8 +1,43 @@
 domain: MCProfileErrorDomain
 code: 1000
 symbol: prMalformedProfile
-title: Malformed profile
-confidence: name-only
+title: Invalid profile
+summary: >-
+  The device rejected the profile as invalid. Devices show "Invalid Profile"
+  for many different problems, so the suggestion text in the same error, or
+  the next error in the chain, matters more than the code. Apple Configurator
+  shows it as MCProfileErrorDomain 0x3E8 (1000).
+causes:
+  - A required key is missing, for example Topic or IdentityCertificateUUID in an MDM payload.
+  - The profile couldn't be parsed. One report saw this when sending a signed profile with InstallProfile while the unsigned copy installed.
+  - The profile breaks a structural rule, for example a profile with an MDM payload was made non-removable with a removal password payload.
+  - During Automated Device Enrollment or Apple Configurator preparation, the device isn't assigned to the right MDM server or enrollment profile.
+  - The user assigned to the device can't be found, for example because they aren't in a valid Apple School Manager group.
+  - On the certificate side, a broken Network Device Enrollment Service (SCEP) installation, in one vendor's case.
+checks:
+  - Read the suggestion text (USEnglishDescription, or the next item in the chain). It often names the field.
+  - Compare the profile with Apple's payload reference. In an MDM payload, Topic must match the topic of your push certificate, and IdentityCertificateUUID must point to a certificate or SCEP payload in the same profile.
+  - For enrollment through Apple School Manager or Apple Business, check that the device is assigned to the correct MDM server and enrollment profile, then erase and prepare it again.
+platforms: [iOS, iPadOS]
+confidence: observed
 sources:
+  - title: "micromdm/micromdm issue 496: required field Topic missing"
+    url: https://github.com/micromdm/micromdm/issues/496
+  - title: "thrasr/mdm-server issue 15: required field IdentityCertificateUUID missing"
+    url: https://github.com/thrasr/mdm-server/issues/15
+  - title: "Apple Developer Forums: InstallProfile fails to parse a signed profile"
+    url: https://developer.apple.com/forums/thread/131410
+  - title: "Apple Developer Forums: profileRemovalPassword with an MDM payload"
+    url: https://developer.apple.com/forums/thread/780363
+  - title: "Apple Community: InstallProfile command via MDM, Invalid Profile (iOS 6)"
+    url: https://discussions.apple.com/thread/4416221
+  - title: "Jamf Nation: Invalid Profile with Apple Configurator 2 on iPad"
+    url: https://community.jamf.com/t5/jamf-pro/invalid-profile-ipad-os-apple-configurator-2/m-p/169525
+  - title: "Cisco Meraki: Systems Manager logging and troubleshooting (error table)"
+    url: https://documentation.meraki.com/SM/Other_Topics/Systems_Manager_Logging_and_Troubleshooting
+  - title: "Broadcom KB 18134: iOS enrollment fails, Invalid Profile (NDES)"
+    url: https://knowledge.broadcom.com/external/article/18134/when-trying-to-enroll-an-ios-device-we-g.html
+  - title: "Apple: MDM payload reference"
+    url: https://developer.apple.com/documentation/devicemanagement/mdm
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go

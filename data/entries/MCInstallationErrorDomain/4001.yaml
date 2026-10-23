@@ -1,8 +1,33 @@
 domain: MCInstallationErrorDomain
 code: 4001
 symbol: inInstallationFailure
-title: Installation failure
-confidence: name-only
+title: Profile installation failed
+summary: >-
+  A general "this profile didn't install" error, shown on devices as "Profile
+  Installation Failed". It is usually the first item in the error chain and
+  says little on its own. The specific reason is in the errors that follow it,
+  often MCProfileErrorDomain 1000 or 1009 and then a payload or network error.
+causes:
+  - A payload can't be applied, for example a passcode payload while passcode changes are restricted, or supervised-only settings sent to an unsupervised device.
+  - The enrollment profile's MDM payload is missing a required key such as Topic.
+  - During enrollment the device couldn't get its identity certificate because the SCEP server returned an error. One vendor traced this to IIS rejecting the long SCEP request.
+  - During enrollment the MDM server asked the device for a TLS client certificate.
+checks:
+  - Read every error in the ErrorChain, not only the first. The last one is usually the most specific.
+  - Remove or fix the payload that the later errors name, then send the profile again.
+  - If the chain ends in a SCEP or NSURLErrorDomain error, look at the SCEP server and the MDM server's TLS settings rather than the profile.
+platforms: [iOS]
+confidence: observed
 sources:
+  - title: "Cisco Meraki: Systems Manager logging and troubleshooting (error table)"
+    url: https://documentation.meraki.com/SM/Other_Topics/Systems_Manager_Logging_and_Troubleshooting
+  - title: "micromdm/micromdm issue 496: required field Topic missing (4001 over 1000)"
+    url: https://github.com/micromdm/micromdm/issues/496
+  - title: "Broadcom KB 155716: iOS MDM profile can't be installed (SCEP invalid response)"
+    url: https://knowledge.broadcom.com/external/article/155716/ios-mdm-profile-is-unable-to-be-installe.html
+  - title: "Micro Focus KB 7012758: MDM profile fails, server requires a client certificate"
+    url: https://support.microfocus.com/kb/doc.php?id=7012758
+  - title: "Apple Developer Forums: Cellular Private Network Profile not working (4001 and 1009 chain)"
+    url: https://developer.apple.com/forums/thread/745387
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go

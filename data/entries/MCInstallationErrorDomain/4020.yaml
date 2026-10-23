@@ -1,8 +1,31 @@
 domain: MCInstallationErrorDomain
 code: 4020
 symbol: inUIInstallProhibited
-title: UI install prohibited
-confidence: name-only
+title: Profile must be installed by device management
+summary: >-
+  The device won't accept this profile when it is installed by hand, for
+  example from Settings, a download or Apple Configurator's profile install.
+  The device's message says it must come from a device management tool, which
+  in practice means an MDM server the device is enrolled in. Apple Configurator
+  shows it as DMCInstallationErrorDomain 0xFB4 (4020).
+causes:
+  - Installing a profile directly on a device that isn't enrolled in MDM, when the profile contains settings that only device management may deliver.
+  - Turning on Single App Mode on an iPad by installing the profile directly.
+checks:
+  - Enroll the device in your MDM service and send the profile from there.
+  - Check which payloads the profile contains. Apple's device-management schema marks some iOS payloads as not installable by hand (allowmanualinstall false), for example DNS Proxy, Extensible Single Sign-On and Network Usage Rules. The public reports don't say which payload triggered 4020, so treat this as a lead.
+  - If the profile uses supervised-only settings, such as App Lock for Single App Mode, the device must also be supervised.
+platforms: [iOS, iPadOS]
+confidence: observed
+last_confirmed: "iOS 15.4.1"
 sources:
+  - title: "Apple Community: error installing a profile via Apple Configurator 2.15.1 (iOS 15.4.1)"
+    url: https://discussions.apple.com/thread/253857755
+  - title: "Apple Developer Forums: Single App Mode unable to start (iPadOS 13)"
+    url: https://developer.apple.com/forums/thread/119628
+  - title: "Apple Support: install a configuration profile (profiles installed by device management)"
+    url: https://support.apple.com/en-us/102400
+  - title: "Apple: device-management schema, profile payloads (allowmanualinstall)"
+    url: https://github.com/apple/device-management/tree/release/mdm/profiles
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go

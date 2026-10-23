@@ -1,8 +1,29 @@
 domain: MCProfileErrorDomain
 code: 1009
 symbol: prProfileInstallationFailure
-title: Profile installation failure
-confidence: name-only
+title: Profile could not be installed
+summary: >-
+  The profile as a whole failed to install and the device rolled back its
+  changes. The device's message names the profile. It wraps the payload-level
+  error that caused the failure, so look further down the chain for the reason.
+causes:
+  - During enrollment, the SCEP server returned an invalid response while issuing the device's identity certificate.
+  - During enrollment, the MDM server demanded a TLS client certificate.
+  - An Exchange ActiveSync payload couldn't retrieve the server's policy (MCEASErrorDomain 21001).
+  - Another payload in the profile failed with its own error, for example a cellular private network payload.
+checks:
+  - Find the innermost error in the chain and fix that payload, or the server it depends on.
+  - For enrollment failures, test the SCEP and MDM server URLs from the device's network and check their TLS settings.
+platforms: [iOS]
+confidence: observed
 sources:
+  - title: "Broadcom KB 155716: iOS MDM profile can't be installed (SCEP invalid response)"
+    url: https://knowledge.broadcom.com/external/article/155716/ios-mdm-profile-is-unable-to-be-installe.html
+  - title: "Micro Focus KB 7012758: MDM profile fails, server requires a client certificate"
+    url: https://support.microfocus.com/kb/doc.php?id=7012758
+  - title: "Apple Community: Problem with configuration profiles (Exchange policy, iOS 4)"
+    url: https://discussions.apple.com/thread/2770527
+  - title: "Apple Developer Forums: Cellular Private Network Profile not working"
+    url: https://developer.apple.com/forums/thread/745387
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go

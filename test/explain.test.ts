@@ -10,7 +10,7 @@ describe("explain", () => {
   it("attaches entries to the status and to known error codes", () => {
     const result = explain(ERROR_RESPONSE_PLIST, dataset);
     expect(result.status?.entry?.title).toBe("Command failed");
-    expect(result.errors.map((e) => e.entry?.title)).toEqual(["Installation failure", "Invalid password"]);
+    expect(result.errors.map((e) => e.entry?.title)).toEqual(["Profile installation failed", "Invalid password"]);
     expect(result.unknown).toEqual([]);
   });
 
@@ -30,8 +30,9 @@ describe("explain", () => {
 describe("formatText", () => {
   it("shows the device's own description, the confidence and a source", () => {
     const text = formatText(explain(ERROR_RESPONSE_PLIST, dataset));
-    expect(text).toContain("Error 1 of 2: MCInstallationErrorDomain 4001 (Installation failure)");
+    expect(text).toContain("Error 1 of 2: MCInstallationErrorDomain 4001 (Profile installation failed)");
     expect(text).toContain('Device said: "The profile could not be installed."');
+    expect(text).toContain("Confidence: observed on devices");
     expect(text).toContain("Confidence: name only, no explanation yet");
     expect(text).toContain("Source: MicroMDM");
   });

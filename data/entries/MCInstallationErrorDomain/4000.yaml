@@ -1,8 +1,29 @@
 domain: MCInstallationErrorDomain
 code: 4000
 symbol: inCannotParseProfile
-title: Cannot parse profile
-confidence: name-only
+title: Invalid profile
+summary: >-
+  The device refused to queue a profile for installation because it judged the
+  profile invalid. Devices show it as "Invalid Profile". It is an outer error:
+  the next error in the chain, usually MCProfileErrorDomain 1000, carries the
+  actual reason.
+causes:
+  - A required key is missing from a payload, for example an MDM payload with no IdentityCertificateUUID.
+  - The profile data can't be read as a valid profile.
+checks:
+  - Read the next error in the ErrorChain. Its suggestion text often names the missing or invalid field.
+  - Check every payload against Apple's payload reference for required keys. In an MDM payload, IdentityCertificateUUID must point to a certificate or SCEP payload in the same profile.
+platforms: [iOS]
+confidence: observed
+last_confirmed: "iOS 14.4.2"
 sources:
+  - title: "Apple Developer Forums: Provisioning Profile installation fails (iOS 14.4.2, 4000 over 1000)"
+    url: https://developer.apple.com/forums/thread/677257
+  - title: "thrasr/mdm-server issue 15: enrollment fails, IdentityCertificateUUID missing"
+    url: https://github.com/thrasr/mdm-server/issues/15
+  - title: "bitstadium/HockeyKit issue 185: profile install fails on iPad"
+    url: https://github.com/bitstadium/HockeyKit/issues/185
+  - title: "Apple: MDM payload reference"
+    url: https://developer.apple.com/documentation/devicemanagement/mdm
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go
