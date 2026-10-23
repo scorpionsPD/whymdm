@@ -1,8 +1,24 @@
 domain: MCMDMErrorDomain
 code: 12008
 symbol: mdmMalformedRequest
-title: Malformed request
-confidence: name-only
+title: Invalid MDM request
+summary: >-
+  The device rejected the command because something in it isn't valid for
+  this device. The description in the error says what. In a public macOS 10.14
+  report it was an install action that the chosen OS update didn't support.
+  Newer reports show the same code in MDMErrorDomain (see MDMErrorDomain
+  12008); whether the two are the same error isn't documented.
+causes:
+  - ScheduleOSUpdate with an InstallAction the update doesn't support, for example NotifyOnly for a major macOS upgrade.
+checks:
+  - Read the error's description; it usually names the value that was rejected.
+  - Check the command's keys and allowed values in Apple's device-management schema for this OS version.
+platforms: [macOS]
+confidence: observed
 sources:
+  - title: "MicroMDM blog: Updating to Mojave? (ScheduleOSUpdate on macOS 10.14)"
+    url: https://micromdm.io/blog/os_update/
+  - title: "Apple: device-management schema, ScheduleOSUpdate command"
+    url: https://github.com/apple/device-management/blob/release/mdm/commands/system.update.schedule.yaml
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go

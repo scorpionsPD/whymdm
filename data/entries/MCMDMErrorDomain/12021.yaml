@@ -1,8 +1,34 @@
 domain: MCMDMErrorDomain
 code: 12021
 symbol: mdmInvalidRequestType
-title: Invalid request type
-confidence: name-only
+title: Command not accepted on this device
+summary: >-
+  The device recognised the command but refused it, saying it "is not a valid
+  request type". In the public reports the command needed something the
+  device's enrollment didn't have, most often supervision. Apple doesn't
+  document the code itself; the link to supervision comes from the reports
+  below and Apple's command requirements.
+causes:
+  - The command needs a supervised device. Reported for RestartDevice, ShutDownDevice, EnableLostMode and ScheduleOSUpdate on iOS, which Apple's schema lists as supervised-only.
+  - The device uses User Enrollment, which Apple's schema forbids for those commands.
+  - The enrollment lacks the access right the command needs. For RestartDevice and ShutDownDevice that is the device lock and passcode removal right.
+checks:
+  - Look up the command in Apple's device-management schema and compare its requirements (supervised, user enrollment, access rights, OS versions) with the device.
+  - Check whether the device is supervised. On iPhone and iPad, supervision comes from Automated Device Enrollment or Apple Configurator; a profile can't add it.
+  - For OS updates, Apple lists ScheduleOSUpdate as deprecated in 26.0 and removed in 27.0. Use the declarative software update enforcement configuration instead.
+platforms: [iOS]
+confidence: observed
+last_confirmed: "iOS 17.2.1"
 sources:
+  - title: "micromdm/micromdm issue 970: RestartDevice is not a valid request type (iOS 17.2.1)"
+    url: https://github.com/micromdm/micromdm/issues/970
+  - title: "Cisco Meraki: Systems Manager logging and troubleshooting (error table)"
+    url: https://documentation.meraki.com/SM/Other_Topics/Systems_Manager_Logging_and_Troubleshooting
+  - title: "Apple: device-management schema, RestartDevice command"
+    url: https://github.com/apple/device-management/blob/release/mdm/commands/device.restart.yaml
+  - title: "Apple: device-management schema, ScheduleOSUpdate command"
+    url: https://github.com/apple/device-management/blob/release/mdm/commands/system.update.schedule.yaml
+  - title: "Apple Platform Deployment: About device supervision"
+    url: https://support.apple.com/guide/deployment/about-device-supervision-dep1d89f0bff/web
   - title: "MicroMDM: Apple MDM error code list (errors.go)"
     url: https://github.com/micromdm/mdm/blob/master/errors.go

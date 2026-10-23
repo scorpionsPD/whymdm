@@ -1,0 +1,29 @@
+domain: MCMDMErrorDomain
+code: 12023
+title: App Store ID couldn't be validated
+summary: >-
+  An InstallApplication command failed because the device couldn't validate
+  the app's App Store ID for this device or user. The response usually also
+  has the rejection reason CouldNotVerifyAppID. Despite the wording, it most
+  often points to a licensing problem rather than a wrong ID.
+causes:
+  - No licence is available, for example a paid app with no licence for the user, or a licence that hasn't been applied yet.
+  - A free app was sent to a device with no Apple Account signed in, and signing in is turned off.
+  - The licence and the app don't match, for example a licence for a different edition of the app.
+  - On iOS 9.3.2 only, a bug made the device treat the command as if PurchaseMethod were 1 whenever ChangeManagementState was set. Removing ChangeManagementState worked around it.
+checks:
+  - Confirm that a licence for this exact app is assigned to the device or user in Apple Business or Apple School Manager.
+  - If the licence comes from Apps and Books (volume purchase), check that the command uses PurchaseMethod 1.
+  - Allow a short delay after assigning a licence, then send the command again.
+  - If it keeps happening, Apple's device management engineers ask for a Feedback Assistant report with a sysdiagnose from the device.
+platforms: [iOS]
+confidence: observed
+sources:
+  - title: "Apple Developer Forums: InstallApplication error, iTunes Store ID could not be validated (iOS 9.3.2)"
+    url: https://developer.apple.com/forums/thread/48331
+  - title: "Apple Developer Forums: Unable to install apps through MDM (iOS 13 and 14)"
+    url: https://developer.apple.com/forums/thread/680597
+  - title: "Cisco Meraki: Systems Manager logging and troubleshooting (error table)"
+    url: https://documentation.meraki.com/SM/Other_Topics/Systems_Manager_Logging_and_Troubleshooting
+  - title: "Apple: device-management schema, InstallApplication command"
+    url: https://github.com/apple/device-management/blob/release/mdm/commands/application.install.yaml

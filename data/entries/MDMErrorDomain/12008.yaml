@@ -1,0 +1,24 @@
+domain: MDMErrorDomain
+code: 12008
+title: Invalid MDM request
+summary: >-
+  The device rejected the command as invalid ("The MDM request is invalid.").
+  In the public report it came with the rejection reason
+  PurchaseMethodNotSupported, for an app install on a device using User
+  Enrollment. Check the RejectionReason in the same response; it is more
+  specific than the code. On macOS 11 the same rejection reason was reported
+  with a different code, MDMClientError 97.
+causes:
+  - The command's PurchaseMethod isn't allowed for this enrollment. Apple's schema says that installing an iOS app with User Enrollment needs PurchaseMethod 1 (an Apps and Books licence), and that PurchaseMethod 0 is only available on iOS.
+checks:
+  - For User Enrollment, send InstallApplication with PurchaseMethod 1 and make sure a licence is assigned.
+  - Don't send ChangeManagementState to user-enrolled devices; Apple's schema says it doesn't work with User Enrollment.
+platforms: [iOS]
+confidence: observed
+sources:
+  - title: "Apple Developer Forums: App installation fails on a User Enrollment device"
+    url: https://developer.apple.com/forums/thread/749434
+  - title: "Apple: device-management schema, InstallApplication command (PurchaseMethod)"
+    url: https://github.com/apple/device-management/blob/release/mdm/commands/application.install.yaml
+  - title: "Apple Developer Forums: installing managed apps on macOS 11 (MDMClientError 97)"
+    url: https://developer.apple.com/forums/thread/666002

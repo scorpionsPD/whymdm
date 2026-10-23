@@ -6,7 +6,7 @@ When an iPhone, iPad or Mac rejects an MDM command, you get something like `MCIn
 
 It works with any MDM (Jamf, Intune, Kandji, Mosyle, Fleet, NanoMDM, your own) because it only reads what the device sends back.
 
-> **Early days.** The dataset starts with every code name and number from MicroMDM's list, plus Apple's five command status values explained. Most codes are still `name-only`. Explanations are being added one by one, each with a source. [Contributions are very welcome](CONTRIBUTING.md).
+> **Early days.** The dataset starts with every code name and number from MicroMDM's list. Apple's five command status values and the most common profile and command errors are explained so far; most other codes are still `name-only`. Explanations are being added one by one, each with a source. [Contributions are very welcome](CONTRIBUTING.md).
 
 ## Use it
 
