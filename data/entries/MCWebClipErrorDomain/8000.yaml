@@ -1,0 +1,8 @@
+domain: MCWebClipErrorDomain
+code: 8000
+symbol: wcCannotInstallWebClip
+title: Cannot install web clip
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

@@ -1,0 +1,8 @@
+domain: MDMCommandStatus
+code: Idle
+title: Device idle
+summary: The device has no result to report and is asking the server whether there's a command waiting. This is normal at the start of a check-in.
+confidence: apple-documented
+sources:
+  - title: "Apple: Sending MDM commands to a device"
+    url: https://developer.apple.com/documentation/devicemanagement/sending-mdm-commands-to-a-device

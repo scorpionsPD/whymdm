@@ -1,0 +1,12 @@
+domain: MDMCommandStatus
+code: CommandFormatError
+title: Command badly formed
+summary: The device reported a protocol error. Apple says this can be caused by a malformed command, so the problem is usually in what the server sent rather than on the device.
+checks:
+  - Compare the command with Apple's schema for that command (the apple/device-management repository on GitHub), including key names and value types.
+confidence: apple-documented
+sources:
+  - title: "Apple: Sending MDM commands to a device"
+    url: https://developer.apple.com/documentation/devicemanagement/sending-mdm-commands-to-a-device
+  - title: "Apple: device management schema (GitHub)"
+    url: https://github.com/apple/device-management

@@ -1,0 +1,20 @@
+domain: MDMCommandStatus
+code: NotNow
+title: Device can't run the command yet
+summary: The device received the command but can't run it at the moment. A later retry may succeed. The device doesn't keep the command, so the server has to send it again.
+causes:
+  - Some commands won't run until the device has been unlocked for the first time after it restarts.
+  - On a Mac, InstallProfile or RemoveProfile sent on the user channel while the user's keychain is locked.
+  - On a Mac running on battery in Power Nap, most commands are deferred.
+  - On a Mac, a long-running request (for example InstalledApplicationList) while login is waiting on the MDM server.
+checks:
+  - Resend the command when the device next checks in; the device checks in again by itself when conditions change.
+  - If you send another command on the same connection and it doesn't also return NotNow, the device won't check in again by itself. Send a push notification later to wake it.
+  - For a device that stays NotNow, check whether it has been unlocked since its last restart.
+platforms: [iOS, iPadOS, macOS]
+confidence: apple-documented
+sources:
+  - title: "Apple: Handling NotNow status responses"
+    url: https://developer.apple.com/documentation/devicemanagement/handling-notnow-status-responses
+  - title: "Apple: Sending MDM commands to a device"
+    url: https://developer.apple.com/documentation/devicemanagement/sending-mdm-commands-to-a-device

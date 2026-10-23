@@ -1,0 +1,8 @@
+domain: MCInstallationErrorDomain
+code: 4017
+symbol: inMultipleHTTPProxyPayloads
+title: Multiple HTTP proxy payloads
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

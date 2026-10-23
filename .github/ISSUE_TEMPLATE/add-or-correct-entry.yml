@@ -1,0 +1,45 @@
+name: Add or correct an entry
+description: Explain an MDM error code, or fix an explanation that's wrong.
+title: "[entry] <ErrorDomain> <code>"
+labels: [entry]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping. Please **don't include UDIDs, serial numbers, push tokens or customer names**.
+  - type: input
+    id: domain
+    attributes:
+      label: Error domain
+      placeholder: MCInstallationErrorDomain
+    validations:
+      required: true
+  - type: input
+    id: code
+    attributes:
+      label: Code
+      placeholder: "4009"
+    validations:
+      required: true
+  - type: textarea
+    id: meaning
+    attributes:
+      label: What it means, in your own words
+    validations:
+      required: true
+  - type: textarea
+    id: causes
+    attributes:
+      label: What caused it, and what fixed it
+  - type: input
+    id: os
+    attributes:
+      label: Platform and OS version where you saw it
+      placeholder: iOS 26.1, macOS 26.0
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Links to Apple docs, forum threads or write-ups. If it's only from your own devices, say so.
+    validations:
+      required: true

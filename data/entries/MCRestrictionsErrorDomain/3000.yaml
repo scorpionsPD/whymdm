@@ -1,0 +1,8 @@
+domain: MCRestrictionsErrorDomain
+code: 3000
+symbol: rsInconsistentRestrictionSense
+title: Inconsistent restriction sense
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

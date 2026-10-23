@@ -1,0 +1,8 @@
+domain: MCPasscodeErrorDomain
+code: 5003
+symbol: pcRepeatingChars
+title: Repeating chars
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

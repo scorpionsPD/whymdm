@@ -1,0 +1,8 @@
+domain: MCMDMErrorDomain
+code: 12010
+symbol: mdmInternalConsistencyError
+title: Internal consistency error
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

@@ -1,0 +1,8 @@
+domain: MCProfileErrorDomain
+code: 1008
+symbol: prNonUniquePayloadIdentifiers
+title: Non unique payload identifiers
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

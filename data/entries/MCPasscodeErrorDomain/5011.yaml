@@ -1,0 +1,8 @@
+domain: MCPasscodeErrorDomain
+code: 5011
+symbol: pcWrongPasscode
+title: Wrong passcode
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

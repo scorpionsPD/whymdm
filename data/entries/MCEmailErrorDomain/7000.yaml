@@ -1,0 +1,8 @@
+domain: MCEmailErrorDomain
+code: 7000
+symbol: emHostUnreachable
+title: Host unreachable
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

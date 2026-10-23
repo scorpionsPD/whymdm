@@ -1,0 +1,8 @@
+domain: MCInstallationErrorDomain
+code: 4024
+symbol: inProfileNotFound
+title: Profile not found
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

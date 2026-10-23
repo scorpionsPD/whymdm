@@ -1,0 +1,11 @@
+WhyMDM data (everything under data/entries and the built data/whymdm.json)
+
+To the extent possible under law, the WhyMDM contributors have waived all
+copyright and related or neighbouring rights to the WhyMDM data, under the
+Creative Commons CC0 1.0 Universal Public Domain Dedication:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+This applies to the explanations written for WhyMDM. The initial list of error
+domain names, code numbers and identifiers was taken from MicroMDM under the MIT
+licence; see THIRD_PARTY_NOTICES.md. Linked sources (for example Apple's
+documentation) remain the property of their owners and are referenced, not copied.

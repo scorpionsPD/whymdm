@@ -1,0 +1,8 @@
+domain: MCInstallationErrorDomain
+code: 4021
+symbol: inProfileMustBeNonInteractive
+title: Profile must be non interactive
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

@@ -1,0 +1,8 @@
+domain: MCInstallationErrorDomain
+code: 4027
+symbol: inProfileRequiresPasscodeChange
+title: Profile requires passcode change
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

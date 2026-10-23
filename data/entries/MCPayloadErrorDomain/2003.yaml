@@ -1,0 +1,8 @@
+domain: MCPayloadErrorDomain
+code: 2003
+symbol: plBadDataTypeInField
+title: Bad data type in field
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

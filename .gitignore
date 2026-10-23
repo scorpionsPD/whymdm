@@ -1,0 +1,5 @@
+node_modules/
+dist/
+data/whymdm.json
+.DS_Store
+coverage/

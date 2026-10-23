@@ -1,0 +1,8 @@
+domain: MCMDMErrorDomain
+code: 12021
+symbol: mdmInvalidRequestType
+title: Invalid request type
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

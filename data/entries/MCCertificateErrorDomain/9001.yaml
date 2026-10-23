@@ -1,0 +1,8 @@
+domain: MCCertificateErrorDomain
+code: 9001
+symbol: ceTooManyCertificatesInPayload
+title: Too many certificates in payload
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

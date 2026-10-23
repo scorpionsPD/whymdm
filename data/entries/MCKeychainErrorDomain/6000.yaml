@@ -1,0 +1,8 @@
+domain: MCKeychainErrorDomain
+code: 6000
+symbol: kcKeychainSystemError
+title: Keychain system error
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

@@ -1,0 +1,8 @@
+domain: MCProfileErrorDomain
+code: 1007
+symbol: prNonUniqueUUIDs
+title: Non unique UUIDs
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

@@ -1,0 +1,8 @@
+domain: MDMCommandStatus
+code: Acknowledged
+title: Command completed
+summary: The device ran the command successfully. There's nothing to fix.
+confidence: apple-documented
+sources:
+  - title: "Apple: Sending MDM commands to a device"
+    url: https://developer.apple.com/documentation/devicemanagement/sending-mdm-commands-to-a-device

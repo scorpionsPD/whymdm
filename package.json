@@ -1,0 +1,50 @@
+{
+  "name": "whymdm",
+  "version": "0.1.0",
+  "description": "Plain-English explanations for Apple MDM and declarative device management (DDM) error codes.",
+  "keywords": [
+    "mdm",
+    "ddm",
+    "macadmins",
+    "device-management",
+    "error-codes"
+  ],
+  "license": "MIT",
+  "author": "Pradeep Dahiya",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "whymdm": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "data/whymdm.json",
+    "LICENSE",
+    "data/LICENSE",
+    "data/THIRD_PARTY_NOTICES.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build:data": "tsx scripts/build-data.ts",
+    "build": "npm run build:data && tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check": "npm run build:data && npm run typecheck && npm test",
+    "prepublishOnly": "npm run check && npm run build"
+  },
+  "dependencies": {
+    "plist": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/plist": "^3.0.5",
+    "ajv": "^8.17.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "yaml": "^2.6.0"
+  }
+}

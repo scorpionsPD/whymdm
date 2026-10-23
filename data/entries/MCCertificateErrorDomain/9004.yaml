@@ -1,0 +1,8 @@
+domain: MCCertificateErrorDomain
+code: 9004
+symbol: ceCannotStoreRootCertificate
+title: Cannot store root certificate
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

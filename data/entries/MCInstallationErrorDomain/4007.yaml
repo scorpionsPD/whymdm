@@ -1,0 +1,8 @@
+domain: MCInstallationErrorDomain
+code: 4007
+symbol: inUnrecognisedFileFormat
+title: Unrecognised file format
+confidence: name-only
+sources:
+  - title: "MicroMDM: Apple MDM error code list (errors.go)"
+    url: https://github.com/micromdm/mdm/blob/master/errors.go

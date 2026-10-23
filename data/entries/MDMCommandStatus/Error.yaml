@@ -1,0 +1,11 @@
+domain: MDMCommandStatus
+code: Error
+title: Command failed
+summary: The device tried to run the command and it failed. The details are in the response's ErrorChain, which lists one or more error domains and codes.
+checks:
+  - Read every item in the ErrorChain, not just the first.
+  - Look up each domain and code in WhyMDM.
+confidence: apple-documented
+sources:
+  - title: "Apple: Sending MDM commands to a device"
+    url: https://developer.apple.com/documentation/devicemanagement/sending-mdm-commands-to-a-device
