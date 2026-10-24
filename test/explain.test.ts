@@ -37,6 +37,11 @@ describe("formatText", () => {
     expect(text).toContain("Source: MicroMDM");
   });
 
+  it("explains an Apple Configurator message", () => {
+    const text = formatText(explain("Invalid Profile [MCProfileErrorDomain – 0x3E8 (1000)]", dataset));
+    expect(text).toContain("Error: MCProfileErrorDomain 1000 (Invalid profile)");
+  });
+
   it("invites a contribution for unknown codes", () => {
     expect(formatText(explain("MCInstallationErrorDomain 4999", dataset))).toContain("Not in WhyMDM yet");
   });

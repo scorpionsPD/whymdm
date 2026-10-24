@@ -22,7 +22,7 @@ After the release:
 
 ```sh
 npx whymdm explain response.plist     # a command response (XML plist or JSON)
-pbpaste | npx whymdm explain -        # or anything copied from a log
+pbpaste | npx whymdm explain -        # or anything copied from a log or Apple Configurator
 npx whymdm lookup MCInstallationErrorDomain 4009
 npx whymdm lookup MDMCommandStatus NotNow
 npx whymdm list                       # domains and how many codes each has

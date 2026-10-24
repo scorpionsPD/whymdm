@@ -41,6 +41,19 @@ describe("parseInput", () => {
     ]);
   });
 
+  it("reads Apple Configurator messages, with its D prefix and hex codes", () => {
+    const configurator = 'The profile must be installed using a device management tool. [DMCInstallationErrorDomain – 0xFB4 (4020)]';
+    expect(parseInput(configurator).errors).toEqual([{ domain: "MCInstallationErrorDomain", code: 4020 }]);
+    expect(parseInput("invalid profile [MCProfileErrorDomain - 0x3e8 (1000)]").errors).toEqual([
+      { domain: "MCProfileErrorDomain", code: 1000 },
+    ]);
+  });
+
+  it("reads a hex code without the decimal, and never as code 0", () => {
+    expect(parseInput("MCProfileErrorDomain – 0x3E8").errors).toEqual([{ domain: "MCProfileErrorDomain", code: 1000 }]);
+    expect(parseInput("MCProfileErrorDomain 0x3E8").errors).toEqual([{ domain: "MCProfileErrorDomain", code: 1000 }]);
+  });
+
   it("handles negative codes", () => {
     expect(parseInput("NSPOSIXErrorDomain -2").errors).toEqual([{ domain: "NSPOSIXErrorDomain", code: -2 }]);
   });

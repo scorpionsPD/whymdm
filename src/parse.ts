@@ -67,22 +67,37 @@ function collect(value: unknown, out: ParsedInput, depth = 0): void {
 
 // `Error Domain=MCInstallationErrorDomain Code=4009 "..."`, as printed by NSError.
 const NSERROR_RE = /Domain=([A-Za-z][\w.]*)\s+Code=(-?\d+)/g;
+// `[DMCInstallationErrorDomain – 0xFB4 (4020)]`, as shown by Apple Configurator: hex code, decimal in brackets.
+const CONFIGURATOR_RE = /\b([A-Za-z][\w.]*(?:ErrorDomain|Domain))\s*[-–—:]?\s*0x([0-9A-Fa-f]+)\b(?:\s*\((\d+)\))?/g;
 // `MCInstallationErrorDomain 4009`, `MCInstallationErrorDomain:4009`, `MCInstallationErrorDomain error 4009`
-// The separator class leaves out "-" so negative codes keep their sign.
-const LOOSE_RE = /\b([A-Za-z][\w.]*(?:ErrorDomain|Domain))\b[\s:/#,(=]*(?:error|code)?[\s:#=]*(-?\d+)/gi;
+// The separator class leaves out "-" so negative codes keep their sign,
+// and the lookahead stops the "0" of a hex code such as 0xFB4 being read as code 0.
+const LOOSE_RE = /\b([A-Za-z][\w.]*(?:ErrorDomain|Domain))\b[\s:/#,(=]*(?:error|code)?[\s:#=]*(-?\d+)(?![\dxX])/gi;
 const STATUS_RE = /\b(Acknowledged|NotNow|CommandFormatError|Idle)\b|\bStatus\W{0,4}(Error)\b/;
+
+/** Apple Configurator adds a "D" to some domains: DMCInstallationErrorDomain is the device's MCInstallationErrorDomain. */
+function normaliseDomain(domain: string): string {
+  return /^DMC\w*ErrorDomain$/.test(domain) ? domain.slice(1) : domain;
+}
 
 function parseText(text: string): ParsedInput {
   const out: ParsedInput = { errors: [] };
   const seen = new Set<string>();
+  const add = (rawDomain: string, code: number) => {
+    const domain = normaliseDomain(rawDomain);
+    const key = `${domain}/${code}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.errors.push({ domain, code });
+  };
+
+  CONFIGURATOR_RE.lastIndex = 0;
+  for (let m = CONFIGURATOR_RE.exec(text); m; m = CONFIGURATOR_RE.exec(text)) {
+    add(m[1], m[3] !== undefined ? Number(m[3]) : parseInt(m[2], 16));
+  }
   for (const re of [NSERROR_RE, LOOSE_RE]) {
     re.lastIndex = 0;
-    for (let m = re.exec(text); m; m = re.exec(text)) {
-      const key = `${m[1]}/${m[2]}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      out.errors.push({ domain: m[1], code: Number(m[2]) });
-    }
+    for (let m = re.exec(text); m; m = re.exec(text)) add(m[1], Number(m[2]));
   }
   const s = STATUS_RE.exec(text);
   if (s) out.status = s[1] ?? s[2];
